@@ -1,0 +1,10 @@
+[package]
+name = "model"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+loss = { path = "../loss" }
+layers = { path = "../layers" }
+optimizer = { path = "../optimizer" }
+ndarray = "0.16.1"
