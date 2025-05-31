@@ -2,7 +2,7 @@ use polars::prelude::*;
 use std::error::Error;
 use ndarray::Array2;
 use model::NN;
-use layers::layer::Layer;
+use layers::{LayerTypes, layer::Layer};
 use layers::relu::ReLu;
 use loss::mseloss::MSELoss;
 use optimizer::sgd::SGDOptimizer;
@@ -56,9 +56,9 @@ fn main() -> Result<(), Box<dyn Error>>{
 
     let mut trainer = NN {
         layers: vec![
-            Box::new(Layer::new(784, 128)),
-            Box::new(ReLu::new()),
-            Box::new(Layer::new(128, 10)),
+            LayerTypes::Layer(Layer::new(784, 128)),
+            LayerTypes::ReLu(ReLu::new()),
+            LayerTypes::Layer(Layer::new(128, 10)),
         ],
         loss_fn: MSELoss { targets: None },
         optim: SGDOptimizer { lr: 0.01 },

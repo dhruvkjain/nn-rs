@@ -64,12 +64,12 @@ nn-rs/
 ```shell
 DATA: 60000, 784
 LABELS: 60000, 1
-Iteration 0: loss = 7000.565
-Iteration 50: loss = 38.300846
-Iteration 100: loss = 32.709435
-Iteration 150: loss = 28.24366
-Iteration 200: loss = 24.61995
-Iteration 250: loss = 21.667906
+Iteration 0: loss = 3927.208
+Iteration 50: loss = 32.324875
+Iteration 100: loss = 27.696865
+Iteration 150: loss = 24.12308
+Iteration 200: loss = 21.246998
+Iteration 250: loss = 18.90943
 ```
 
 

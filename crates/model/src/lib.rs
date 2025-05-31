@@ -1,11 +1,11 @@
 use loss::Loss;
 use optimizer::Optimizer;
-use layers::Propagate;
+use layers::{LayerTypes, Propagate};
 use ndarray::Array2;
 
 
 pub struct NN<S: Loss, O: Optimizer> {
-    pub layers: Vec<Box<dyn Propagate>>,
+    pub layers: Vec<LayerTypes>,
     pub loss_fn: S,
     pub optim: O,
 }
