@@ -1,8 +1,8 @@
-use loss::Loss;
-use optimizer::Optimizer;
-use layers::{LayerTypes, Propagate};
 use ndarray::Array2;
 
+pub use layers::*;
+pub use loss::*;
+pub use optimizer::*;
 
 pub struct NN<S: Loss, O: Optimizer> {
     pub layers: Vec<LayerTypes>,
@@ -11,7 +11,7 @@ pub struct NN<S: Loss, O: Optimizer> {
 }
 
 impl<S: Loss, O: Optimizer> NN<S, O> {
-    /// Forward pass through all layers.
+    // Forward pass through all layers.
     pub fn forward_all(&mut self, x: &Array2<f32>) -> Array2<f32> {
         let mut z = x.clone();
         for layer in  self.layers.iter_mut(){
@@ -20,7 +20,7 @@ impl<S: Loss, O: Optimizer> NN<S, O> {
         z
     }
 
-    /// Backward pass: loss gradient → all layers (in reverse)
+    // Backward pass: loss gradient → all layers (in reverse)
     pub fn backward_all(&mut self, grad_loss: &Array2<f32>) {
         let mut grad = grad_loss.clone();
         for layer in self.layers.iter_mut().rev() {
@@ -28,7 +28,7 @@ impl<S: Loss, O: Optimizer> NN<S, O> {
         }
     }
 
-    /// Single training step on batch (inputs, targets)
+    // Single training step on batch (inputs, targets)
     pub fn train_step(&mut self, x: &Array2<f32>, y: &Array2<f32>) -> f32 {
         // Forward
         let preds = self.forward_all(x);

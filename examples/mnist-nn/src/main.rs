@@ -1,11 +1,8 @@
 use polars::prelude::*;
 use std::error::Error;
 use ndarray::Array2;
-use model::NN;
-use layers::{LayerTypes, layer::Layer};
-use layers::relu::ReLu;
-use loss::mseloss::MSELoss;
-use optimizer::sgd::SGDOptimizer;
+
+use model::*;
 
 pub fn load_training_data() -> Result<(Array2<f32>, Array2<f32>), Box<dyn Error>> {
     let q = LazyCsvReader::new("../test_data/mnist/mnist_train.csv")
@@ -37,7 +34,7 @@ pub fn load_training_data() -> Result<(Array2<f32>, Array2<f32>), Box<dyn Error>
         .to_ndarray::<Float32Type>(IndexOrder::Fortran)
         .unwrap();
 
-    // taking transpose  
+    // dataset values were from 0 - 255
     traning_data_ndarray = traning_data_ndarray / 255.0;
     training_labels_ndarray = training_labels_ndarray;
 
@@ -51,7 +48,9 @@ pub fn load_training_data() -> Result<(Array2<f32>, Array2<f32>), Box<dyn Error>
     Ok((traning_data_ndarray, training_labels_ndarray))
 }
 
-fn main() -> Result<(), Box<dyn Error>>{
+fn main() -> Result<(), Box<dyn Error>> {
+
+    // here x is of [batch size, number of classes]
     let (x, y) = load_training_data()?;
 
     let mut trainer = NN {
@@ -60,14 +59,14 @@ fn main() -> Result<(), Box<dyn Error>>{
             LayerTypes::ReLu(ReLu::new()),
             LayerTypes::Layer(Layer::new(128, 10)),
         ],
-        loss_fn: MSELoss { targets: None },
+        loss_fn: CrossEntropyLoss { probs:None, targets: None },
         optim: SGDOptimizer { lr: 0.01 },
     };
     
     for iteration in 0..251 {
         let loss = trainer.train_step(&x, &y);
         
-        if iteration%50 == 0{
+        if iteration%50 == 0 {
             println!("Iteration {}: loss = {}", iteration, loss);
         }
     }

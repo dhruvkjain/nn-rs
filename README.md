@@ -45,7 +45,7 @@ nn-rs/
 ├── Cargo.toml                ← workspace root
 ├── crates/
 │   ├── layers/               # Contains Propagate trait, Layer, and activation functions
-│   ├── loss/                 # Contains Loss trait and implementations like MSELoss
+│   ├── loss/                 # Contains Loss trait and implementations like MSELoss, CrossEntropyLoss
 │   ├── optimizer/            # Contains Optimizer trait and implementations like SGDOptimizer
 │   └── model/                # Assembles layers, loss and optimizer to handles training
 └── examples/
@@ -60,7 +60,7 @@ nn-rs/
 
 
 ## Results for MNIST dataset
-1 hidden layer of 128 neuron, relu activation function, 250 iterations
+1 hidden layer of 128 neuron, relu activation function, mse loss, 250 iterations
 ```shell
 DATA: 60000, 784
 LABELS: 60000, 1
@@ -73,7 +73,7 @@ Iteration 250: loss = 18.90943
 ```
 
 
-1 hidden layer of 128 neuron, relu activation function, 15 iterations
+1 hidden layer of 128 neuron, relu activation function, mse loss, 15 iterations
 ```shell
 DATA: 60000, 784
 LABELS: 60000, 1
@@ -81,4 +81,16 @@ Iteration 0: loss = 4730.49
 Iteration 5: loss = 34.387665
 Iteration 10: loss = 33.08763
 Iteration 15: loss = 32.200054
+```
+
+1 hidden layer of 128 neuron, relu activation function, cross entropy loss250 iterations
+```shell
+DATA: 60000, 784
+LABELS: 60000, 1
+Iteration 0: loss = 89.386665
+Iteration 50: loss = 40.095
+Iteration 100: loss = 32.72167
+Iteration 150: loss = 29.686665
+Iteration 200: loss = 28.358334
+Iteration 250: loss = 27.649998
 ```

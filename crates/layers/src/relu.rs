@@ -1,5 +1,5 @@
-use super::Propagate;
 use ndarray::Array2;
+use super::Propagate;
 
 pub struct ReLu {
     cache: Option<Array2<f32>>,
