@@ -17,6 +17,7 @@ impl Propagate for ReLu {
     }
     fn backward(&mut self, grad_output: &Array2<f32>) -> Array2<f32> {
         let mask = self.cache.as_ref().expect("No cache");
-        grad_output * mask
+        let temp = mask.mapv(|x| if x > 0.0 { 1.0 } else { 0.0 });
+        grad_output * temp
     }
 }

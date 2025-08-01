@@ -11,11 +11,16 @@ pub struct Layer {
 }
 impl Layer {
     pub fn new(input_dim:usize, output_dim:usize) -> Self{
-        let w = Array2::random((input_dim, output_dim), rand_distr::StandardNormal);
+        let w = Array2::random((input_dim, output_dim), rand_distr::Uniform::new(-0.5, 0.5));
         let b = Array1::zeros(output_dim);
         let gw = Array2::zeros((input_dim, output_dim));
         let gb = Array1::zeros(output_dim);
         Layer { weights: w, bias: b, grad_weights: gw, grad_bias: gb, input: None }
+    }
+
+    pub fn set_params(&mut self, weights: Array2<f32>, bias: Array1<f32>) {
+        self.weights = weights;
+        self.bias = bias;
     }
 }
 impl Propagate for Layer {

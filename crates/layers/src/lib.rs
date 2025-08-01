@@ -1,11 +1,15 @@
 use ndarray::{Array1, Array2};
 pub use layer::Layer;
 pub use relu::ReLu;
+pub use leaky_relu::LeakyReLu;
+pub use elu::ELU;
 pub use softmax::Softmax;
 
 pub enum LayerTypes {
     Layer(Layer),
     ReLu(ReLu),
+    LeakyReLu(LeakyReLu),
+    ELU(ELU),
     Softmax(Softmax)
 }
 
@@ -28,6 +32,8 @@ impl Propagate for LayerTypes {
         match self {
             LayerTypes::Layer(layer) => layer.forward(input),
             LayerTypes::ReLu(layer) => layer.forward(input),
+            LayerTypes::LeakyReLu(layer) => layer.forward(input),
+            LayerTypes::ELU(layer) => layer.forward(input),
             LayerTypes::Softmax(layer) => layer.forward(input),
         }
     }
@@ -36,6 +42,8 @@ impl Propagate for LayerTypes {
         match self {
             LayerTypes::Layer(layer) => layer.backward(grad_output),
             LayerTypes::ReLu(layer) => layer.backward(grad_output),
+            LayerTypes::LeakyReLu(layer) => layer.backward(grad_output),
+            LayerTypes::ELU(layer) => layer.backward(grad_output),
             LayerTypes::Softmax(_) => {
                 panic!("Softmax should not be used in backprop unless combined with loss")
             }
@@ -51,6 +59,8 @@ impl Propagate for LayerTypes {
         match self {
             LayerTypes::Layer(layer) => layer.params_grads(),
             LayerTypes::ReLu(_) => None,
+            LayerTypes::LeakyReLu(_) => None,
+            LayerTypes::ELU(_) => None,
             LayerTypes::Softmax(_) => None,
         }
     }
@@ -60,3 +70,5 @@ impl Propagate for LayerTypes {
 pub mod layer;
 pub mod relu;
 pub mod softmax;
+pub mod leaky_relu;
+pub mod elu;

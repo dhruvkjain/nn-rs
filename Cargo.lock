@@ -1208,6 +1208,7 @@ dependencies = [
  "loss",
  "ndarray",
  "optimizer",
+ "polars",
 ]
 
 [[package]]

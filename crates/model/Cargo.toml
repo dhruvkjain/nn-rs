@@ -8,3 +8,4 @@ loss = { path = "../loss" }
 layers = { path = "../layers" }
 optimizer = { path = "../optimizer" }
 ndarray = "0.16.1"
+polars = { version = "0.47.1" }

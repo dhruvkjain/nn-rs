@@ -1,8 +1,10 @@
-use ndarray::Array2;
+use ndarray::{Array1, Array2, Axis};
 
 pub use layers::*;
 pub use loss::*;
 pub use optimizer::*;
+pub use savemodel::*;
+pub use loadmodel::*;
 
 pub struct NN<S: Loss, O: Optimizer> {
     pub layers: Vec<LayerTypes>,
@@ -29,7 +31,7 @@ impl<S: Loss, O: Optimizer> NN<S, O> {
     }
 
     // Single training step on batch (inputs, targets)
-    pub fn train_step(&mut self, x: &Array2<f32>, y: &Array2<f32>) -> f32 {
+    pub fn train_step(&mut self, x: &Array2<f32>, y: &Array2<f32>, itertation: usize, save_at: usize, save_path: &str) -> f32 {
         // Forward
         let preds = self.forward_all(x);
         // Loss
@@ -58,6 +60,52 @@ impl<S: Loss, O: Optimizer> NN<S, O> {
         // Update
         self.optim.step_weight(&mut all_weights, &mut all_grad_weights);
         self.optim.step_bias(&mut all_bias, &mut all_grad_bias);
+
+        // save the last weights and bias
+        if itertation == save_at {
+            if let Err(e) = save_model(all_weights, all_bias, save_path) {
+                eprintln!("Failed to save weights: {}", e);
+            }
+        }
+
         loss
     }
+
+    pub fn test_step(&mut self, x: &Array2<f32>, y: &Array2<f32>) -> (f32, f32) {
+        let preds = self.forward_all(x);
+        let probs = Softmax::new().forward(&preds);
+        println!("-------------probabilities");
+        println!("{:?}", probs);
+        let loss = self.loss_fn.forward(&preds, y);
+        
+        let pred_labels: Array1<usize> = probs
+            .axis_iter(Axis(0))
+            .map(|row| { 
+                row
+                    .iter()
+                    .enumerate()
+                    .max_by(|a, b| a.1.partial_cmp(b.1).unwrap())
+                    .unwrap()
+                    .0
+                })
+            .collect();
+
+        println!("-------------predicted labels");
+        println!("{:?}", pred_labels);
+
+        let target_labels: Array1<usize> = y.iter().map(|x| *x as usize).collect();
+
+        let correct = pred_labels.iter()
+            .zip(target_labels.iter())
+            .filter(|(p, t)| p == t)
+            .count();
+
+
+        let accuracy = (correct as f32 / y.len() as f32) * 100.0;
+
+        (loss, accuracy)
+    }
 }
+
+pub mod savemodel;
+pub mod loadmodel;
