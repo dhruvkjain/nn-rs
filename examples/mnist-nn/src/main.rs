@@ -104,11 +104,21 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut nn = NN {
         layers: vec![
             LayerTypes::Layer(Layer::new(784, 16)),
-            LayerTypes::LeakyReLu(LeakyReLu::new()),
+            LayerTypes::ELU(ELU::new(1.0)),
             LayerTypes::Layer(Layer::new(16, 10)),
         ],
         loss_fn: CrossEntropyLoss { probs: None, one_hot_encoded:None },
-        optim: MomentumOptimizer { lr: 0.05, momentum: 0.9, velocity_w: Vec::new(), velocity_b: Vec::new() },
+        optim: NadamOptimizer { 
+            lr: 0.01, 
+            momentum: 0.9, 
+            decay_rate: 0.999, 
+            smoothing: 1e-7 as f32,
+            velocity_w:Vec::new(),
+            velocity_b:Vec::new(),
+            scaling_factor_w: Vec::new(), 
+            scaling_factor_b: Vec::new(),
+            timestep: 0,
+        },
     };
     
     // let num_layers = nn.layers
@@ -150,7 +160,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let (loss, accuracy) = nn.test_step(&xt, &yt);
     println!("Loss: {loss}");
-    println!("Accuracy: {accuracy}");
+    println!("Accuracy: {accuracy}%");
 
     Ok(())
 }
