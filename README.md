@@ -64,6 +64,100 @@ nn-rs/
 
 ## Results for MNIST dataset
 
+#### 1 hidden layer of 16 neuron He intialized, elu activation function, cross entropy loss, nadam optimizer, 0.01 learning rate, 150 iterations
+```shell
+Training dataset dimensions
+DATA: 60000, 784
+LABELS: 60000, 1
+
+Iteration 0: loss = 0.24601953
+Iteration 10: loss = 0.061340604
+Iteration 20: loss = 0.04186616
+Iteration 30: loss = 0.035088763
+Iteration 40: loss = 0.03133954
+Iteration 50: loss = 0.02880185
+Iteration 60: loss = 0.026939582
+Iteration 70: loss = 0.025421605
+Iteration 80: loss = 0.024120415
+Iteration 90: loss = 0.022980707
+Iteration 100: loss = 0.021966562
+Iteration 110: loss = 0.021057272
+Iteration 120: loss = 0.020238798
+Iteration 130: loss = 0.019499602
+Iteration 140: loss = 0.018829359
+Iteration 150: loss = 0.018218907
+
+Testing dataset dimensions
+DATA: 10000, 784
+LABELS: 10000, 1
+
+Confusion Matrix:
+[[964, 0, 1, 2, 1, 5, 4, 1, 2, 0],
+ [0, 1115, 4, 1, 0, 1, 3, 2, 9, 0],
+ [6, 7, 966, 12, 8, 1, 7, 5, 20, 0],
+ [3, 1, 12, 941, 0, 19, 0, 13, 18, 3],
+ [1, 1, 4, 1, 939, 0, 9, 2, 3, 22],
+ [5, 2, 1, 21, 9, 822, 13, 0, 13, 6],
+ [9, 3, 3, 0, 6, 14, 919, 0, 4, 0],
+ [1, 10, 24, 3, 5, 1, 0, 953, 2, 29],
+ [10, 3, 5, 20, 8, 14, 8, 11, 890, 5],
+ [8, 4, 2, 11, 27, 8, 0, 11, 4, 934]]
+
+Class 0: TP = 964, FP = 43, FN = 16, TN = 8977
+Precision = 0.95729893
+Recall(Sensitivity) = 0.98367345
+F1-score: = 0.970307
+---------------------------------------------
+Class 1: TP = 1115, FP = 31, FN = 20, TN = 8834
+Precision = 0.9729494
+Recall(Sensitivity) = 0.98237884
+F1-score: = 0.97764134
+---------------------------------------------
+Class 2: TP = 966, FP = 56, FN = 66, TN = 8912
+Precision = 0.94520545
+Recall(Sensitivity) = 0.93604654
+F1-score: = 0.9406037
+---------------------------------------------
+Class 3: TP = 941, FP = 71, FN = 69, TN = 8919
+Precision = 0.9298419
+Recall(Sensitivity) = 0.9316832
+F1-score: = 0.93076164
+---------------------------------------------
+Class 4: TP = 939, FP = 64, FN = 43, TN = 8954
+Precision = 0.93619144
+Recall(Sensitivity) = 0.9562118
+F1-score: = 0.94609576
+---------------------------------------------
+Class 5: TP = 822, FP = 63, FN = 70, TN = 9045
+Precision = 0.9288136
+Recall(Sensitivity) = 0.92152464
+F1-score: = 0.92515475
+---------------------------------------------
+Class 6: TP = 919, FP = 44, FN = 39, TN = 8998
+Precision = 0.95430946
+Recall(Sensitivity) = 0.9592902
+F1-score: = 0.9567933
+---------------------------------------------
+Class 7: TP = 953, FP = 45, FN = 75, TN = 8927
+Precision = 0.9549098
+Recall(Sensitivity) = 0.9270428
+F1-score: = 0.94077
+---------------------------------------------
+Class 8: TP = 890, FP = 75, FN = 84, TN = 8951
+Precision = 0.9222798
+Recall(Sensitivity) = 0.9137577
+F1-score: = 0.91799897
+---------------------------------------------
+Class 9: TP = 934, FP = 65, FN = 75, TN = 8926
+Precision = 0.9349349
+Recall(Sensitivity) = 0.92566895
+F1-score: = 0.9302789
+---------------------------------------------
+Loss: 0.019970542
+Accuracy: 94.43%
+```
+
+
 #### 1 hidden layer of 16 neuron, leaky relu activation function, cross entropy loss, momentum optimizer, 0.01 learning rate, 150 iterations
 ```shell
 Training dataset dimensions
@@ -887,4 +981,334 @@ DATA: 10000, 784
 LABELS: 10000, 1
 Loss: 0.02411928
 Accuracy: 92.94%
+```
+
+#### 1 hidden layer of 16 neuron He intialized, elu activation function, cross entropy loss, nadam optimizer, 0.01 learning rate, 150 iterations
+```shell
+Training dataset dimensions
+DATA: 60000, 784
+LABELS: 60000, 1
+
+Iteration 0: loss = 0.24853164
+Iteration 1: loss = 0.17384005
+Iteration 2: loss = 0.172105
+Iteration 3: loss = 0.12794612
+Iteration 4: loss = 0.10475904
+Iteration 5: loss = 0.09161225
+Iteration 6: loss = 0.08313847
+Iteration 7: loss = 0.07661963
+Iteration 8: loss = 0.07120152
+Iteration 9: loss = 0.06680047
+Iteration 10: loss = 0.063227445
+Iteration 11: loss = 0.060253914
+Iteration 12: loss = 0.057717063
+Iteration 13: loss = 0.05550614
+Iteration 14: loss = 0.053538453
+Iteration 15: loss = 0.051761333
+Iteration 16: loss = 0.050149046
+Iteration 17: loss = 0.04868931
+Iteration 18: loss = 0.047369804
+Iteration 19: loss = 0.046172056
+Iteration 20: loss = 0.045074515
+Iteration 21: loss = 0.0440589
+Iteration 22: loss = 0.043113224
+Iteration 23: loss = 0.042230695
+Iteration 24: loss = 0.041406754
+Iteration 25: loss = 0.040637005
+Iteration 26: loss = 0.03991697
+Iteration 27: loss = 0.03924198
+Iteration 28: loss = 0.038607426
+Iteration 29: loss = 0.038009427
+Iteration 30: loss = 0.037444573
+Iteration 31: loss = 0.036909986
+Iteration 32: loss = 0.036403242
+Iteration 33: loss = 0.03592219
+Iteration 34: loss = 0.035464823
+Iteration 35: loss = 0.03502938
+Iteration 36: loss = 0.0346143
+Iteration 37: loss = 0.034218263
+Iteration 38: loss = 0.033839963
+Iteration 39: loss = 0.03347857
+Iteration 40: loss = 0.03313323
+Iteration 41: loss = 0.03280315
+Iteration 42: loss = 0.0324877
+Iteration 43: loss = 0.032186024
+Iteration 44: loss = 0.03189746
+Iteration 45: loss = 0.03162135
+Iteration 46: loss = 0.03135694
+Iteration 47: loss = 0.031103496
+Iteration 48: loss = 0.030860186
+Iteration 49: loss = 0.030626355
+Iteration 50: loss = 0.030401217
+Iteration 51: loss = 0.030184144
+Iteration 52: loss = 0.029974453
+Iteration 53: loss = 0.029771706
+Iteration 54: loss = 0.029575273
+Iteration 55: loss = 0.029384732
+Iteration 56: loss = 0.02919961
+Iteration 57: loss = 0.02901953
+Iteration 58: loss = 0.028844154
+Iteration 59: loss = 0.028673174
+Iteration 60: loss = 0.028506309
+Iteration 61: loss = 0.02834333
+Iteration 62: loss = 0.028184047
+Iteration 63: loss = 0.02802826
+Iteration 64: loss = 0.02787582
+Iteration 65: loss = 0.027726566
+Iteration 66: loss = 0.027580371
+Iteration 67: loss = 0.027437165
+Iteration 68: loss = 0.027296739
+Iteration 69: loss = 0.027159039
+Iteration 70: loss = 0.027023913
+Iteration 71: loss = 0.026891325
+Iteration 72: loss = 0.026761077
+Iteration 73: loss = 0.026633134
+Iteration 74: loss = 0.026507318
+Iteration 75: loss = 0.026383545
+Iteration 76: loss = 0.026261762
+Iteration 77: loss = 0.026141774
+Iteration 78: loss = 0.02602353
+Iteration 79: loss = 0.025906917
+Iteration 80: loss = 0.02579181
+Iteration 81: loss = 0.025678167
+Iteration 82: loss = 0.025565892
+Iteration 83: loss = 0.025454873
+Iteration 84: loss = 0.025345065
+Iteration 85: loss = 0.025236374
+Iteration 86: loss = 0.025128704
+Iteration 87: loss = 0.02502202
+Iteration 88: loss = 0.024916286
+Iteration 89: loss = 0.02481138
+Iteration 90: loss = 0.024707295
+Iteration 91: loss = 0.024604008
+Iteration 92: loss = 0.024501497
+Iteration 93: loss = 0.024399703
+Iteration 94: loss = 0.024298588
+Iteration 95: loss = 0.024198115
+Iteration 96: loss = 0.024098229
+Iteration 97: loss = 0.023998896
+Iteration 98: loss = 0.02390009
+Iteration 99: loss = 0.023801792
+Iteration 100: loss = 0.02370399
+Iteration 101: loss = 0.02360672
+Iteration 102: loss = 0.023509944
+Iteration 103: loss = 0.023413716
+Iteration 104: loss = 0.023318013
+Iteration 105: loss = 0.023222761
+Iteration 106: loss = 0.023127982
+Iteration 107: loss = 0.023033615
+Iteration 108: loss = 0.022939675
+Iteration 109: loss = 0.022846188
+Iteration 110: loss = 0.022753194
+Iteration 111: loss = 0.022660641
+Iteration 112: loss = 0.022568544
+Iteration 113: loss = 0.022476848
+Iteration 114: loss = 0.022385573
+Iteration 115: loss = 0.022294763
+Iteration 116: loss = 0.022204395
+Iteration 117: loss = 0.02211445
+Iteration 118: loss = 0.022024984
+Iteration 119: loss = 0.021935973
+Iteration 120: loss = 0.021847436
+Iteration 121: loss = 0.02175936
+Iteration 122: loss = 0.021671802
+Iteration 123: loss = 0.021584736
+Iteration 124: loss = 0.021498224
+Iteration 125: loss = 0.02141217
+Iteration 126: loss = 0.021326672
+Iteration 127: loss = 0.021241646
+Iteration 128: loss = 0.021157123
+Iteration 129: loss = 0.021073103
+Iteration 130: loss = 0.020989612
+Iteration 131: loss = 0.020906644
+Iteration 132: loss = 0.020824203
+Iteration 133: loss = 0.020742312
+Iteration 134: loss = 0.020660993
+Iteration 135: loss = 0.020580191
+Iteration 136: loss = 0.020499928
+Iteration 137: loss = 0.020420235
+Iteration 138: loss = 0.020341113
+Iteration 139: loss = 0.020262541
+Iteration 140: loss = 0.020184515
+Iteration 141: loss = 0.020107059
+Iteration 142: loss = 0.020030199
+Iteration 143: loss = 0.019953884
+Iteration 144: loss = 0.019878138
+Iteration 145: loss = 0.019802952
+Iteration 146: loss = 0.019728344
+Iteration 147: loss = 0.01965432
+Iteration 148: loss = 0.0195809
+Iteration 149: loss = 0.01950806
+Iteration 150: loss = 0.019435808
+
+Testing dataset dimensions
+DATA: 10000, 784
+LABELS: 10000, 1
+Loss: 0.020764414
+Accuracy: 94%
+```
+
+#### 1 hidden layer of 16 neuron He intialized, elu activation function, cross entropy loss, rmsprop optimizer, 0.001 learning rate, 150 iterations
+```shell
+Training dataset dimensions
+DATA: 60000, 784
+LABELS: 60000, 1
+
+Iteration 0: loss = 0.24677078
+Iteration 1: loss = 0.2388423
+Iteration 2: loss = 0.21298032
+Iteration 3: loss = 0.15988456
+Iteration 4: loss = 0.14047888
+Iteration 5: loss = 0.1261486
+Iteration 6: loss = 0.118391745
+Iteration 7: loss = 0.1130256
+Iteration 8: loss = 0.10622413
+Iteration 9: loss = 0.09997055
+Iteration 10: loss = 0.09290307
+Iteration 11: loss = 0.087909035
+Iteration 12: loss = 0.08333954
+Iteration 13: loss = 0.07978126
+Iteration 14: loss = 0.076613806
+Iteration 15: loss = 0.07398029
+Iteration 16: loss = 0.071871854
+Iteration 17: loss = 0.06971319
+Iteration 18: loss = 0.06834289
+Iteration 19: loss = 0.06585617
+Iteration 20: loss = 0.06456384
+Iteration 21: loss = 0.06167645
+Iteration 22: loss = 0.060261145
+Iteration 23: loss = 0.05775044
+Iteration 24: loss = 0.056446746
+Iteration 25: loss = 0.054524943
+Iteration 26: loss = 0.05345076
+Iteration 27: loss = 0.051977213
+Iteration 28: loss = 0.051202755
+Iteration 29: loss = 0.05012474
+Iteration 30: loss = 0.049887355
+Iteration 31: loss = 0.049607083
+Iteration 32: loss = 0.050465155
+Iteration 33: loss = 0.051421408
+Iteration 34: loss = 0.051232077
+Iteration 35: loss = 0.04852791
+Iteration 36: loss = 0.0467846
+Iteration 37: loss = 0.044679567
+Iteration 38: loss = 0.043954935
+Iteration 39: loss = 0.042980034
+Iteration 40: loss = 0.04269745
+Iteration 41: loss = 0.042364188
+Iteration 42: loss = 0.04221212
+Iteration 43: loss = 0.04206813
+Iteration 44: loss = 0.04128655
+Iteration 45: loss = 0.04087681
+Iteration 46: loss = 0.039714955
+Iteration 47: loss = 0.039456926
+Iteration 48: loss = 0.038881578
+Iteration 49: loss = 0.03929435
+Iteration 50: loss = 0.03996599
+Iteration 51: loss = 0.040486176
+Iteration 52: loss = 0.040678672
+Iteration 53: loss = 0.03875852
+Iteration 54: loss = 0.03754323
+Iteration 55: loss = 0.03646411
+Iteration 56: loss = 0.035950147
+Iteration 57: loss = 0.035972342
+Iteration 58: loss = 0.035400085
+Iteration 59: loss = 0.03527222
+Iteration 60: loss = 0.034654923
+Iteration 61: loss = 0.034870867
+Iteration 62: loss = 0.0351493
+Iteration 63: loss = 0.03568002
+Iteration 64: loss = 0.03572677
+Iteration 65: loss = 0.034637116
+Iteration 66: loss = 0.0337328
+Iteration 67: loss = 0.03263511
+Iteration 68: loss = 0.03205942
+Iteration 69: loss = 0.031580705
+Iteration 70: loss = 0.03135666
+Iteration 71: loss = 0.031294968
+Iteration 72: loss = 0.031671196
+Iteration 73: loss = 0.03282279
+Iteration 74: loss = 0.03570899
+Iteration 75: loss = 0.039184302
+Iteration 76: loss = 0.037714764
+Iteration 77: loss = 0.03333973
+Iteration 78: loss = 0.030853054
+Iteration 79: loss = 0.02981294
+Iteration 80: loss = 0.029544726
+Iteration 81: loss = 0.029432734
+Iteration 82: loss = 0.029929597
+Iteration 83: loss = 0.030408239
+Iteration 84: loss = 0.03156659
+Iteration 85: loss = 0.030870043
+Iteration 86: loss = 0.031231713
+Iteration 87: loss = 0.030334929
+Iteration 88: loss = 0.030120121
+Iteration 89: loss = 0.02983188
+Iteration 90: loss = 0.029372597
+Iteration 91: loss = 0.029327057
+Iteration 92: loss = 0.028853241
+Iteration 93: loss = 0.028855652
+Iteration 94: loss = 0.028507812
+Iteration 95: loss = 0.028584229
+Iteration 96: loss = 0.028485771
+Iteration 97: loss = 0.02880084
+Iteration 98: loss = 0.02909625
+Iteration 99: loss = 0.02984736
+Iteration 100: loss = 0.029840957
+Iteration 101: loss = 0.030094037
+Iteration 102: loss = 0.029712455
+Iteration 103: loss = 0.029996088
+Iteration 104: loss = 0.030602803
+Iteration 105: loss = 0.029229792
+Iteration 106: loss = 0.028710742
+Iteration 107: loss = 0.028037738
+Iteration 108: loss = 0.027284408
+Iteration 109: loss = 0.027182767
+Iteration 110: loss = 0.026738023
+Iteration 111: loss = 0.026955673
+Iteration 112: loss = 0.026792971
+Iteration 113: loss = 0.027027762
+Iteration 114: loss = 0.026790423
+Iteration 115: loss = 0.026705785
+Iteration 116: loss = 0.026386688
+Iteration 117: loss = 0.026177172
+Iteration 118: loss = 0.025951754
+Iteration 119: loss = 0.025844388
+Iteration 120: loss = 0.025826946
+Iteration 121: loss = 0.026012575
+Iteration 122: loss = 0.026471134
+Iteration 123: loss = 0.027095733
+Iteration 124: loss = 0.027348066
+Iteration 125: loss = 0.026938193
+Iteration 126: loss = 0.02636339
+Iteration 127: loss = 0.026898062
+Iteration 128: loss = 0.028310116
+Iteration 129: loss = 0.029214818
+Iteration 130: loss = 0.027798584
+Iteration 131: loss = 0.026970465
+Iteration 132: loss = 0.026220879
+Iteration 133: loss = 0.025000963
+Iteration 134: loss = 0.024672035
+Iteration 135: loss = 0.024184026
+Iteration 136: loss = 0.024102826
+Iteration 137: loss = 0.023910534
+Iteration 138: loss = 0.024032533
+Iteration 139: loss = 0.02409475
+Iteration 140: loss = 0.024892965
+Iteration 141: loss = 0.025632503
+Iteration 142: loss = 0.02663953
+Iteration 143: loss = 0.0258481
+Iteration 144: loss = 0.024860239
+Iteration 145: loss = 0.024061156
+Iteration 146: loss = 0.023776708
+Iteration 147: loss = 0.023710286
+Iteration 148: loss = 0.023876294
+Iteration 149: loss = 0.024028277
+Iteration 150: loss = 0.02420069
+
+Testing dataset dimensions
+DATA: 10000, 784
+LABELS: 10000, 1
+Loss: 0.024805205
+Accuracy: 92.659996%
 ```

@@ -13,6 +13,33 @@ pub struct NN<S: Loss, O: Optimizer> {
 }
 
 impl<S: Loss, O: Optimizer> NN<S, O> {
+    pub fn compute_confusion_matrix(y_true: &Array1<usize>, y_pred: &Array1<usize>, num_classes: usize) -> Array2<usize> {
+        let mut cm = Array2::<usize>::zeros((num_classes, num_classes));
+        for (&t, &p) in y_true.iter().zip(y_pred.iter()) {
+            cm[[t, p]] += 1;
+        }
+        cm
+    }
+
+    pub fn compute_metrics(cm: &Array2<usize>) {
+        let num_classes = cm.nrows();
+
+        for class in 0..num_classes {
+            let tpos = cm[[class, class]];
+            let fpos = cm.column(class).sum() - tpos;
+            let fneg = cm.row(class).sum() - tpos;
+            let tneg = cm.sum() - (tpos + fpos + fneg);
+            let precision: f32 = tpos as f32 / (tpos + fpos) as f32;
+            let recall: f32 = tpos as f32 / (tpos + fneg) as f32;
+
+            println!("Class {}: TP = {}, FP = {}, FN = {}, TN = {}", class, tpos, fpos, fneg, tneg);
+            println!("Precision = {}", precision);
+            println!("Recall(Sensitivity) = {}", recall);
+            println!("F1-score: = {}",  2.0 * (precision * recall) / (precision + recall));
+            println!("---------------------------------------------");
+        }
+    }
+
     // Forward pass through all layers.
     pub fn forward_all(&mut self, x: &Array2<f32>) -> Array2<f32> {
         let mut z = x.clone();
@@ -74,34 +101,36 @@ impl<S: Loss, O: Optimizer> NN<S, O> {
     pub fn test_step(&mut self, x: &Array2<f32>, y: &Array2<f32>) -> (f32, f32) {
         let preds = self.forward_all(x);
         let probs = Softmax::new().forward(&preds);
-        println!("-------------probabilities");
-        println!("{:?}", probs);
         let loss = self.loss_fn.forward(&preds, y);
         
+        // --------------------Prediction Labels--------------------
         let pred_labels: Array1<usize> = probs
             .axis_iter(Axis(0))
-            .map(|row| { 
-                row
-                    .iter()
+            .map(|row| {
+                row.iter()
                     .enumerate()
                     .max_by(|a, b| a.1.partial_cmp(b.1).unwrap())
                     .unwrap()
                     .0
-                })
+            })
             .collect();
-
-        println!("-------------predicted labels");
-        println!("{:?}", pred_labels);
 
         let target_labels: Array1<usize> = y.iter().map(|x| *x as usize).collect();
 
-        let correct = pred_labels.iter()
+        // --------------------Accuracy--------------------
+        let correct = pred_labels
+            .iter()
             .zip(target_labels.iter())
             .filter(|(p, t)| p == t)
             .count();
 
-
         let accuracy = (correct as f32 / y.len() as f32) * 100.0;
+
+        // --------------------Confusion Matrix & Metrics--------------------
+        let num_classes = probs.shape()[1];
+        let cm = Self::compute_confusion_matrix(&target_labels, &pred_labels, num_classes);
+        println!("Confusion Matrix:\n{cm}");
+        Self::compute_metrics(&cm);
 
         (loss, accuracy)
     }

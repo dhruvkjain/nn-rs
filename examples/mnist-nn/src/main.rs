@@ -103,18 +103,18 @@ fn main() -> Result<(), Box<dyn Error>> {
     // ----------------------MODEL-----------------------
     let mut nn = NN {
         layers: vec![
-            LayerTypes::Layer(Layer::new(784, 16)),
+            LayerTypes::Layer(Layer::new(784, 16, Initialization::He)),
             LayerTypes::ELU(ELU::new(1.0)),
-            LayerTypes::Layer(Layer::new(16, 10)),
+            LayerTypes::Layer(Layer::new(16, 10, Initialization::He)),
         ],
         loss_fn: CrossEntropyLoss { probs: None, one_hot_encoded:None },
         optim: NadamOptimizer { 
             lr: 0.01, 
-            momentum: 0.9, 
+            momentum: 0.9,
             decay_rate: 0.999, 
             smoothing: 1e-7 as f32,
-            velocity_w:Vec::new(),
-            velocity_b:Vec::new(),
+            velocity_w: Vec::new(),
+            velocity_b: Vec::new(),
             scaling_factor_w: Vec::new(), 
             scaling_factor_b: Vec::new(),
             timestep: 0,
@@ -138,9 +138,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     for iteration in 0..=150 {
         let loss = nn.train_step(&x, &y, iteration, 150, "../test_data/mnist");
         
-        // if iteration%10 == 0 {
+        if iteration%10 == 0 {
             println!("Iteration {}: loss = {}", iteration, loss);
-        // }
+        }
     }
 
     // ----------------TESTING & ACCURACY-----------------

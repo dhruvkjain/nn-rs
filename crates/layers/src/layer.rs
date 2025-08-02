@@ -9,9 +9,22 @@ pub struct Layer {
     grad_bias: Array1<f32>,
     input: Option<Array2<f32>>,
 }
+
+pub enum Initialization {
+    He,
+    Glorot,
+    LeCun
+}
+
 impl Layer {
-    pub fn new(input_dim:usize, output_dim:usize) -> Self{
-        let w = Array2::random((input_dim, output_dim), rand_distr::Uniform::new(-0.5, 0.5));
+    pub fn new(input_dim:usize, output_dim:usize, distribution: Initialization) -> Self{
+        let stddev = match distribution {
+            Initialization::He => (2.0 / input_dim as f32).sqrt(),
+            Initialization::Glorot => (1.0 / (input_dim as f32 + output_dim as f32)).sqrt(),
+            Initialization::LeCun => (1.0 / (input_dim as f32)).sqrt(),
+        };
+        let distr = rand_distr::Normal::new(0.0, stddev).expect("Stddev for initialization must be positive");
+        let w = Array2::random((input_dim, output_dim), distr);
         let b = Array1::zeros(output_dim);
         let gw = Array2::zeros((input_dim, output_dim));
         let gb = Array1::zeros(output_dim);

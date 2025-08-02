@@ -1,5 +1,6 @@
 use ndarray::{Array1, Array2};
 pub use layer::Layer;
+pub use layer::Initialization;
 pub use softmax::Softmax;
 pub use relu::ReLu;
 pub use leaky_relu::LeakyReLu;
