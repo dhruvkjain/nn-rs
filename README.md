@@ -31,10 +31,11 @@ fn main() -> Result<(), Box<dyn Error>>{
 
 ## 🔧 Features
 - **Layers can be composed and stacked flexibly in any order**
-- Support for trainable layers (`Layer`) and non-trainable layers/activation functional layer (`ReLU`, `LeakyRelU`, `ELU`).
+- Support for trainable layers (`Layer`) and non-trainable layers/activation functional layer (`ReLU`, `LeakyRelU`, `ELU`, `SELU`).
+- He, LeCun, Glorot Intiazliations for weights and biasis.
 - Custom `Propagate` trait with forward and backward passes.
 - `Loss` trait with MSE loss, Cross Entropy Loss implementations
-- `Optimizer` trait with SGD optimizer, Momentum Optimizer, RMSProp Optimizer implementations.
+- `Optimizer` trait with SGD optimizer, Momentum Optimizer, RMSProp Optimizer, Nesterov Accelerated Gradient, Adam, Nadam implementations.
 - Composable layer structure
 - Written purely in safe Rust
 
@@ -61,6 +62,7 @@ nn-rs/
 ## Performance Results
 - **RMSProp ~ Nadam > AdaMax > Adam > Nestrov > Momentum > SGD > GD** 
 - **SELU > ELU > leaky ReLU (and its variants) > ReLU > tanh > logistic**
+- To learn more about these functions read my research work [here](https://dhruvkjain.github.io/pkms/ML/Generalized-NN-in-Rust). 
 
 ## Results for MNIST dataset
 
