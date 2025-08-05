@@ -1,4 +1,4 @@
-use::ndarray::{Array1, Array2, Axis};
+use ndarray::{Array1, Array2, Axis};
 use layers::{Propagate, Softmax};
 use super::Loss;
 

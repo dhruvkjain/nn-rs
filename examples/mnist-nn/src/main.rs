@@ -2,7 +2,7 @@ use polars::prelude::*;
 use std::error::Error;
 use ndarray::Array2;
 
-use model::*;
+use model::{layer::Regularization, *};
 
 pub fn load_training_data() -> Result<(Array2<f32>, Array2<f32>), Box<dyn Error>> {
     let train_lf = LazyCsvReader::new("../test_data/mnist/mnist_train.csv")
@@ -103,13 +103,17 @@ fn main() -> Result<(), Box<dyn Error>> {
     // ----------------------MODEL-----------------------
     let mut nn = NN {
         layers: vec![
-            LayerTypes::Layer(Layer::new(784, 16, Initialization::He)),
+            LayerTypes::Layer(Layer::new(784, 64, Initialization::He, Regularization::ElasticNet { l1: 0.0001, l2: 0.0001 })),
             LayerTypes::ELU(ELU::new(1.0)),
-            LayerTypes::Layer(Layer::new(16, 10, Initialization::He)),
+            LayerTypes::Layer(Layer::new(64, 32, Initialization::He, Regularization::ElasticNet { l1: 0.0001, l2: 0.0001 })),
+            LayerTypes::ELU(ELU::new(1.0)),
+            LayerTypes::Layer(Layer::new(32, 16, Initialization::He, Regularization::ElasticNet { l1: 0.0001, l2: 0.0001 })),
+            LayerTypes::ELU(ELU::new(1.0)),
+            LayerTypes::Layer(Layer::new(16, 10, Initialization::He, Regularization::ElasticNet { l1: 0.0001, l2: 0.0001 })),
         ],
         loss_fn: CrossEntropyLoss { probs: None, one_hot_encoded:None },
         optim: NadamOptimizer { 
-            lr: 0.01, 
+            lr: 0.0005, 
             momentum: 0.9,
             decay_rate: 0.999, 
             smoothing: 1e-7 as f32,
@@ -119,6 +123,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             scaling_factor_b: Vec::new(),
             timestep: 0,
         },
+        regularization: Regularization::ElasticNet { l1: 0.0001, l2: 0.0001 },
     };
     
     // let num_layers = nn.layers
@@ -136,10 +141,10 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     // ---------------------TRAINING----------------------
     for iteration in 0..=150 {
-        let loss = nn.train_step(&x, &y, iteration, 150, "../test_data/mnist");
+        let (loss, accuracy) = nn.train_step(&x, &y, iteration, 150, "../test_data/mnist");
         
         if iteration%10 == 0 {
-            println!("Iteration {}: loss = {}", iteration, loss);
+            println!("Iteration {}: loss = {}, accuracy = {}%", iteration, loss, accuracy);
         }
     }
 

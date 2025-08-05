@@ -1,5 +1,99 @@
 # Results for MNIST dataset
 
+#### 784-64-32-16-10 architecture, He intialized, elastic net regularization, elu activation function, cross entropy loss, nadam optimizer, 0.0005 learning rate, 150 iterations
+```shell
+Training dataset dimensions
+DATA: 60000, 784
+LABELS: 60000, 1
+
+Iteration 0: loss = 0.515229, accuracy = 7.3083334%
+Iteration 10: loss = 0.4194208, accuracy = 50.795002%
+Iteration 20: loss = 0.3690825, accuracy = 69.354996%
+Iteration 30: loss = 0.33651012, accuracy = 77.49167%
+Iteration 40: loss = 0.31396595, accuracy = 81.56%
+Iteration 50: loss = 0.29716164, accuracy = 84.066666%
+Iteration 60: loss = 0.28394672, accuracy = 85.78333%
+Iteration 70: loss = 0.27313048, accuracy = 87.06833%
+Iteration 80: loss = 0.26401412, accuracy = 88.08833%
+Iteration 90: loss = 0.25617692, accuracy = 88.905%
+Iteration 100: loss = 0.2493262, accuracy = 89.57333%
+Iteration 110: loss = 0.24332188, accuracy = 90.18166%
+Iteration 120: loss = 0.23802409, accuracy = 90.67333%
+Iteration 130: loss = 0.23332518, accuracy = 91.03333%
+Iteration 140: loss = 0.22913754, accuracy = 91.385%
+Iteration 150: loss = 0.22536595, accuracy = 91.67%
+
+Testing dataset dimensions
+DATA: 10000, 784
+LABELS: 10000, 1
+
+Confusion Matrix:
+[[956, 0, 2, 2, 0, 6, 6, 2, 6, 0],
+ [0, 1113, 2, 2, 0, 3, 4, 1, 10, 0],
+ [10, 2, 930, 14, 10, 1, 15, 10, 35, 5],
+ [7, 3, 22, 885, 2, 38, 2, 13, 32, 6],
+ [1, 4, 6, 0, 903, 1, 18, 2, 4, 43],
+ [9, 3, 4, 25, 3, 786, 12, 10, 35, 5],
+ [12, 3, 7, 0, 15, 17, 901, 0, 3, 0],
+ [1, 11, 23, 8, 8, 0, 0, 947, 1, 29],
+ [10, 7, 11, 32, 7, 27, 13, 12, 848, 7],
+ [11, 6, 1, 11, 33, 4, 2, 13, 9, 919]]
+Class 0: TP = 956, FP = 61, FN = 24, TN = 8959
+Precision = 0.94001967
+Recall(Sensitivity) = 0.9755102
+F1-score: = 0.95743614
+---------------------------------------------
+Class 1: TP = 1113, FP = 39, FN = 22, TN = 8826
+Precision = 0.9661458
+Recall(Sensitivity) = 0.98061675
+F1-score: = 0.97332746
+---------------------------------------------
+Class 2: TP = 930, FP = 78, FN = 102, TN = 8890
+Precision = 0.92261904
+Recall(Sensitivity) = 0.9011628
+F1-score: = 0.9117647
+---------------------------------------------
+Class 3: TP = 885, FP = 94, FN = 125, TN = 8896
+Precision = 0.90398365
+Recall(Sensitivity) = 0.87623763
+F1-score: = 0.8898944
+---------------------------------------------
+Class 4: TP = 903, FP = 78, FN = 79, TN = 8940
+Precision = 0.9204893
+Recall(Sensitivity) = 0.9195519
+F1-score: = 0.9200204
+---------------------------------------------
+Class 5: TP = 786, FP = 97, FN = 106, TN = 9011
+Precision = 0.8901472
+Recall(Sensitivity) = 0.8811659
+F1-score: = 0.88563377
+---------------------------------------------
+Class 6: TP = 901, FP = 72, FN = 57, TN = 8970
+Precision = 0.9260021
+Recall(Sensitivity) = 0.94050103
+F1-score: = 0.9331953
+---------------------------------------------
+Class 7: TP = 947, FP = 63, FN = 81, TN = 8909
+Precision = 0.93762374
+Recall(Sensitivity) = 0.92120624
+F1-score: = 0.9293425
+---------------------------------------------
+Class 8: TP = 848, FP = 135, FN = 126, TN = 8891
+Precision = 0.8626653
+Recall(Sensitivity) = 0.8706365
+F1-score: = 0.8666326
+---------------------------------------------
+Class 9: TP = 919, FP = 95, FN = 90, TN = 8896
+Precision = 0.90631163
+Recall(Sensitivity) = 0.9108028
+F1-score: = 0.9085517
+---------------------------------------------
+
+Loss: 0.029155167
+Accuracy: 91.88%
+```
+
+
 ## 1 hidden layer of 16 neuron He intialized, elu activation function, cross entropy loss, nadam optimizer, 0.01 learning rate, 150 iterations
 ```shell
 Training dataset dimensions

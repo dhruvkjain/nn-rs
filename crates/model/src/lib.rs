@@ -10,6 +10,7 @@ pub struct NN<S: Loss, O: Optimizer> {
     pub layers: Vec<LayerTypes>,
     pub loss_fn: S,
     pub optim: O,
+    pub regularization: Regularization,
 }
 
 impl<S: Loss, O: Optimizer> NN<S, O> {
@@ -58,11 +59,59 @@ impl<S: Loss, O: Optimizer> NN<S, O> {
     }
 
     // Single training step on batch (inputs, targets)
-    pub fn train_step(&mut self, x: &Array2<f32>, y: &Array2<f32>, itertation: usize, save_at: usize, save_path: &str) -> f32 {
+    pub fn train_step(&mut self, x: &Array2<f32>, y: &Array2<f32>, itertation: usize, save_at: usize, save_path: &str) -> (f32, f32) {
         // Forward
         let preds = self.forward_all(x);
+        // Probabilities
+        let probs = Softmax::new().forward(&preds);
+        // --------------------Prediction Labels--------------------
+        let pred_labels: Array1<usize> = probs
+            .axis_iter(Axis(0))
+            .map(|row| {
+                row.iter()
+                    .enumerate()
+                    .max_by(|a, b| a.1.partial_cmp(b.1).unwrap())
+                    .unwrap()
+                    .0
+            })
+            .collect();
+
+        let target_labels: Array1<usize> = y.iter().map(|x| *x as usize).collect();
+
+        // --------------------Accuracy--------------------
+        let correct = pred_labels
+            .iter()
+            .zip(target_labels.iter())
+            .filter(|(p, t)| p == t)
+            .count();
+
+        let accuracy = (correct as f32 / y.len() as f32) * 100.0;
         // Loss
         let loss = self.loss_fn.forward(&preds, y);
+
+        // Add regularization penalty
+        let mut reg_penalty = 0.0;
+        for layer in self.layers.iter_mut() {
+            if let Some((weights, _, _, _)) = layer.params_grads() {
+                match self.regularization {
+                    Regularization::L1{lambda} => {
+                        reg_penalty += lambda * weights.mapv(|x| x.abs()).sum();
+                    }
+                    Regularization::L2{lambda} => {
+                        reg_penalty += lambda * weights.mapv(|w| w * w).sum();
+                    }
+                    Regularization::ElasticNet { l1, l2 } => {
+                        let l1_term = l1 * weights.mapv(f32::abs).sum();
+                        let l2_term = l2 * weights.mapv(|w| w * w).sum();
+                        reg_penalty += l1_term + l2_term;
+                    }
+                    Regularization::None => {}
+                }
+            }
+        }
+
+        let final_loss = loss + reg_penalty;
+
         let grad_loss = self.loss_fn.backward(&preds);
         // Backward
         self.backward_all(&grad_loss);
@@ -95,7 +144,7 @@ impl<S: Loss, O: Optimizer> NN<S, O> {
             }
         }
 
-        loss
+        (final_loss, accuracy)
     }
 
     pub fn test_step(&mut self, x: &Array2<f32>, y: &Array2<f32>) -> (f32, f32) {

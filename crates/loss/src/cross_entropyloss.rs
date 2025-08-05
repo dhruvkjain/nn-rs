@@ -17,8 +17,8 @@ impl CrossEntropyLoss {
 }
 
 impl Loss for CrossEntropyLoss {
-    fn forward(&mut self, logits: &Array2<f32>, targets: &Array2<f32>) -> f32 {
-        let probs = Softmax::new().forward(logits);
+    fn forward(&mut self, preds: &Array2<f32>, targets: &Array2<f32>) -> f32 {
+        let probs = Softmax::new().forward(preds);
         let mut one_hot = Array2::<f32>::zeros((targets.len_of(Axis(0)), probs.len_of(Axis(1))));
         let labels: Array1<usize> = targets.iter().map(|x| *x as usize).collect();
 
